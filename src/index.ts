@@ -3,11 +3,42 @@ import { URL, URLSearchParams } from 'url';
 
 export const ROOT_URL = 'https://www.googleapis.com/youtube/v3/search';
 
+export interface Video {
+  etag: string;
+  id: {
+    videoId: string;
+    kind: string;
+  };
+  kind: string;
+  snippet: {
+    title: string;
+    description: string;
+    channelId: string;
+    channelTitle: string;
+    liveBroadcastContent: string;
+    /**
+     * example "2018-05-10T00:45:24.000Z"
+     */
+    publishedAt: string;
+    thumbnails: {
+      default: Thumbnail;
+      high: Thumbnail;
+      medium: Thumbnail;
+    };
+  };
+}
+
+export interface Thumbnail {
+  url: string;
+  height: number;
+  width: number;
+}
+
 // type BoolString = 'true' | 'false';
-type VidDefinition = 'any' | 'high' | 'standard';
-type AnyOrTrue = 'any' | 'true';
-type VideoOrder = 'date' | 'rating' | 'relevance' | 'title' | 'videoCount' | 'viewCount';
-interface Options extends NodeJS.Dict<string | boolean> {
+export type VidDefinition = 'any' | 'high' | 'standard';
+export type AnyOrTrue = 'any' | 'true';
+export type VideoOrder = 'date' | 'rating' | 'relevance' | 'title' | 'videoCount' | 'viewCount';
+export interface Options extends NodeJS.Dict<string | boolean> {
   part: string;
   key: string;
   term: string;
@@ -47,7 +78,7 @@ interface Options extends NodeJS.Dict<string | boolean> {
   videoSyndicated?: AnyOrTrue;
   videoType?: 'any' | 'episode' | 'movie';
 }
-export const youtubeSearch = (options: Options) => new Promise((resolve, reject) => {
+export const youtubeSearch = (options: Options) => new Promise<Video[]>((resolve, reject) => {
   if (!options.key || !options.term || !options.part || !options.type) {
     reject(new Error('Please make sure that the required fields are inserted'));
   }

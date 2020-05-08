@@ -8,5 +8,13 @@ module.exports = {
         },
       },
     ],
+    [
+      '@babel/typescript',
+      {
+        targets: {
+          node: 'current',
+        },
+      },
+    ],
   ],
 };
