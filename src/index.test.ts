@@ -20,6 +20,18 @@ describe('YoutubeSearchTyped', () => {
     part: 'snippet',
     type: 'video',
   })
-    .then((data) => expect(data).toEqual(expect.anything()))
-    .catch((error) => expect(error).toBeNull()));
+    .then((data) => {
+      console.log(data, 'receiped Data');
+      // expect(data).toEqual(expect.anything());
+      if (data === null) {
+        expect(data).toBeNull();
+      } else {
+        expect(data).toEqual(expect.anything());
+        expect(data).toBeInstanceOf(Array);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      expect(error).toBeNull();
+    }));
 });
