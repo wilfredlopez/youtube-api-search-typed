@@ -1,9 +1,9 @@
 {
   "name": "youtube-api-search-typed",
-  "version": "0.0.6",
-  "description": "Fork of youtube-api-search-reloaded with Typescript",
+  "version": "0.0.9",
+  "description": "Fork of youtube-api-search with Typescript",
   "main": "./dist/index.cjs.js",
-  "module": "./dist/index.esm.js",
+  "typings": "./dist/index.d.ts",
   "sideEffects": false,
   "author": "Wilfred Lopez <cubamc@gmail.com>",
   "license": "MIT",
@@ -17,7 +17,9 @@
   ],
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "rollup -c && npm run emit-types",
+    "build": "rimraf dist && tsc --project tsconfig.json --outDir dist",
+    "postpublish": "npm run build",
+    "build:rollup": "rollup -c && npm run emit-types",
     "makeTypeDir": "mkdirp -p dist/types",
     "emit-types": "tsc src/index.ts --lib DOM,ES2015 --declaration --declarationDir dist/ --emitDeclarationOnly",
     "lint": "eslint '**/*.js'",
@@ -36,11 +38,19 @@
     ]
   },
   "dependencies": {
-    "isomorphic-unfetch": "^3.0.0"
+    "@types/axios": "^0.14.0",
+    "axios": "^0.19.2",
+    "isomorphic-unfetch": "^3.0.0",
+    "tslib": "^1.11.2",
+    "url": "^0.11.0",
+    "youtube-api-search": "0.0.5"
   },
   "devDependencies": {
     "@babel/core": "7.7.2",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.6",
     "@babel/preset-env": "7.7.1",
+    "@babel/preset-react": "^7.9.4",
     "@babel/preset-typescript": "^7.9.0",
     "@rollup/plugin-typescript": "^4.1.1",
     "@types/dotenv": "^8.2.0",

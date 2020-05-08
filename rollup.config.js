@@ -1,4 +1,5 @@
 // @ts-check
+
 // import commonjs from 'rollup-plugin-commonjs';
 // import resolve from 'rollup-plugin-node-resolve';
 // import json from 'rollup-plugin-json';
@@ -50,79 +51,75 @@ import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import commonjs from 'rollup-plugin-commonjs';
-
-// import json from 'rollup-plugin-json';
-// import { terser } from 'rollup-plugin-terser';
+import json from 'rollup-plugin-json';
+import { terser } from 'rollup-plugin-terser';
 
 const rootDir = path.resolve(__dirname);
 const dist = path.join(rootDir, 'dist');
-const globals = {
-  url: 'url',
+// const globals = {
+//   url: 'url',
+// };
+const extensions = ['.ts', '.js', '.d.ts'];
+
+const TsConfig = {
+  target: 'ES2015',
+  // tsconfig: 'tsconfig.json',
+  dir: `${dist}`,
+  declarations: true,
 };
-const extensions = ['.ts', '.js'];
 
 export default {
-  // input: {
-  //   entity1: './src/entity1.ts',
-  //   entity2: './src/entity2.ts',
-  // },
   input: 'src/index.ts',
   output: [
     {
       file: `${dist}/index.cjs.js`,
       format: 'cjs',
-      sourcemap: true,
-      globals,
+      sourcemap: false,
+      plugins: [typescript(TsConfig)],
+      // globals,
     },
     {
       file: `${dist}/index.esm.js`,
       format: 'esm',
-      sourcemap: true,
-      globals,
+      name: 'youtubeApiSearch',
+      sourcemap: false,
+      // globals,
+      plugins: [typescript(TsConfig)],
     },
     {
-      name: 'youtubeApiSearchTyped',
       file: `${dist}/index.umd.js`,
+      name: 'youtubeApiSearch',
       format: 'umd',
-      sourcemap: true,
-      globals,
+      sourcemap: false,
+      plugins: [typescript(TsConfig)],
+      // globals,
     },
     {
-      file: './dist/index.module.js',
+      file: `${dist}/index.js`,
+      name: 'youtubeApiSearch',
       format: 'es',
-      globals,
-      sourcemap: true,
-      plugins: [
-        typescript({
-          target: 'ES2015',
-          // tsconfig: 'tsconfig.json',
-          dir: ['src'],
-          declarations: true,
-        }),
-      ],
+      sourcemap: false,
+      plugins: [typescript(TsConfig)],
     },
   ],
   plugins: [
-    // typescript({
-    //   declaration: true,
-    //   dir: true,
-    //   declarationDir: `${dist}/types/`,
-    //   // baseUrl: 'src',
-    // }),
+    typescript(),
     commonjs({
-      include: '**/node_modules/**',
-      namedExports: {},
-      sourceMap: true,
+      // include: '**/node_modules/**',
+      include: '**/src/**',
+      // namedExports: {},
+      // sourceMap: false,
+      extensions: ['.js', '.ts', '.d.ts'],
     }),
-    // json(),
-    // terser({
-    //   compress: true,
-    // }),
+    json(),
+    terser({
+      compress: true,
+    }),
     resolve({
-      jsnext: true,
+      mainFields: ['module', 'main', 'browser'],
       extensions,
-      browser: true,
-      preferBuiltins: true,
+      // browser: true,
+      // preferBuiltins: true,
     }),
     babel({
       extensions,
@@ -130,7 +127,7 @@ export default {
       exclude: 'node_modules/**',
     }),
   ],
-  external: Object.keys(globals),
+  // external: Object.keys(globals),
 };
 
 // export default [

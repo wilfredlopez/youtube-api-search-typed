@@ -1,6 +1,6 @@
 # Youtube seach
 
-Based on `https://www.npmjs.com/package/youtube-api-search-reloaded` added typecript.
+Based on `https://www.npmjs.com/package/youtube-api-search` added typecript.
 
 Avaiable parameters : `https://developers.google.com/youtube/v3/docs/search/list#parameters`
 
@@ -13,8 +13,7 @@ There are 2 required params there are `key` and `term`.
 ### Example:
 
 ```ts
-import YoutubeSearch from "youtube-api-search-typed/dist"
-
+import youtubeSearch, { Video } from "youtube-api-search-typed/dist"
 const params = {
   part,
   key,
@@ -51,7 +50,7 @@ const params = {
 
 const searchTerm: string = "Coffee"
 
-YoutubeSearch({
+youtubeSearch({
   key: API_KEY,
   term: searchTerm,
   part: "snippet",

@@ -1,5 +1,5 @@
 import { config } from 'dotenv';
-import { youtubeSearch } from './index';
+import youtubeSearch from './index';
 
 config();
 
