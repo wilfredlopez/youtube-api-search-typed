@@ -1,9 +1,9 @@
 {
   "name": "youtube-api-search-typed",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Fork of youtube-api-search-reloaded with Typescript",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.esm.js",
   "sideEffects": false,
   "author": "Wilfred Lopez <cubamc@gmail.com>",
   "license": "MIT",
@@ -12,10 +12,13 @@
     "api",
     "search"
   ],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "rollup -c && npm run emit-types",
-    "emit-types": "mkdirp -p dist/types && tsc src/index.ts --lib DOM,ES2015 --declaration --declarationDir dist/types --emitDeclarationOnly",
+    "emit-types": "mkdirp -p dist/types && tsc src/index.ts --lib DOM,ES2015 --declaration --declarationDir dist/ --emitDeclarationOnly",
     "lint": "eslint '**/*.js'",
     "lint:fix": "prettier-eslint '**/*.js' --write",
     "test": "jest",
