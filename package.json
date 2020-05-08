@@ -1,9 +1,9 @@
 {
   "name": "youtube-api-search-typed",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Fork of youtube-api-search-reloaded with Typescript",
-  "main": "dist/bundle.cjs.js",
-  "module": "dist/bundle.esm.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
   "sideEffects": false,
   "author": "Wilfred Lopez <cubamc@gmail.com>",
   "license": "MIT",
@@ -63,5 +63,13 @@
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-terser": "^5.1.2",
     "typescript": "^3.8.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wilfredlopez/youtube-api-search-typed.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wilfredlopez/youtube-api-search-typed/issues"
+  },
+  "homepage": "https://github.com/wilfredlopez/youtube-api-search-typed#readme"
 }
