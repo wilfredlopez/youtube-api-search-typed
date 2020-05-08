@@ -6,12 +6,14 @@ Avaiable parameters : `https://developers.google.com/youtube/v3/docs/search/list
 
 ### Required arguments
 
-There are 4 required params there are `part`, `key`, `term` and `type`.
+There are 2 required params there are `key` and `term`.
+
+`type` defaults to 'video' and `part` defaults to 'snippet'. you can find more info about the parameters in the declarations file. dist/index.d.ts
 
 ### Example:
 
-```javascript
-import YoutubeSearch from "youtube-api-search-reloaded";
+```ts
+import YoutubeSearch from "youtube-api-search-typed/dist"
 
 const params = {
   part,
@@ -45,11 +47,18 @@ const params = {
   videoLicense,
   videoSyndicated,
   videoType,
-};
+}
 
-YoutubeSearch({ params })
+const searchTerm: string = "Coffee"
+
+YoutubeSearch({
+  key: API_KEY,
+  term: searchTerm,
+  part: "snippet",
+  type: "video",
+})
   .then((data) => handleVideoData(data))
-  .catch((error) => handleError(error));
+  .catch((error) => handleError(error))
 ```
 
 ### License
